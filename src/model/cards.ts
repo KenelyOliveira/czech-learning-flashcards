@@ -2,6 +2,7 @@ export enum Answer {
   NoAnswer,
   Wrong,
   Correct,
+  DontKnow
 }
 
 export interface CardModel {
