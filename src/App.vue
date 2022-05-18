@@ -2,23 +2,23 @@
   <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-8">
-          <header class="text-center">
-            <h1>Flashcards!</h1>
-          </header>
-          <router-view/>
-          <footer>Created by <a href="https://github.com/KenelyOliveira">Kenely de Oliveira</a></footer>
-
+        <header class="text-center">
+          <h1>Flashcards!</h1>
+        </header>
+        <router-view />
+        <footer>
+          Created by
+          <a href="https://github.com/KenelyOliveira">Kenely de Oliveira</a>
+        </footer>
       </div>
     </div>
-
-
   </div>
 </template>
 <style>
 h1 {
   padding-top: 20%;
-  font-family: 'Pacifico', cursive;
-  font-family: 'Permanent Marker', cursive;
+  font-family: "Pacifico", cursive;
+  font-family: "Permanent Marker", cursive;
 }
 
 /* body {
@@ -142,5 +142,4 @@ li:nth-child(-7n+7) .card{
   margin-right: 2%;
 }
  */
-
 </style>
