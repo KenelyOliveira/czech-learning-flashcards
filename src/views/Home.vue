@@ -1,18 +1,27 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    
+    <button class="start-button" v-on:click="isReady = true" v-if="!isReady">Start</button>
+
+    <template v-if="isReady">
+      <CardRotation :cards="cards" />
+    </template>
   </div>
 </template>
 
 <script lang="ts">
+import { getCards } from '@/model/cards';
 import { Options, Vue } from 'vue-class-component';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import CardRotation from '../components/CardRotation.vue';
 
 @Options({
   components: {
-    HelloWorld,
+    CardRotation
   },
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+  isReady = false;
+  cards = getCards();
+  
+}
 </script>
