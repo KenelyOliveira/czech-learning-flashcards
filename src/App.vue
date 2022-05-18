@@ -5,7 +5,7 @@
       <div class="col-8">
         <header class="text-center title">
           <RouterLink
-              :to="{ name: 'Home' }">
+              :to="{ name: 'home' }">
               <span>Flashcards!</span>
           </RouterLink>
         </header>

@@ -1,17 +1,39 @@
-export enum Answer {
-  NoAnswer,
-  Wrong,
-  Correct,
-  DontKnow
+export enum AnswerType {
+  NoAnswer = 0,
+  DontKnow = 1,
+  Skip = 2,
+  Wrong = 3,
+  Correct = 4
 }
 
-export interface CardModel {
+export class CardModel {
+  id: number;
   czech: string;
   english: string;
   type: string;
-  flipped: boolean;
   tags: string[];
-  answer: Answer;
+  
+  constructor(id: number, czech: string, english: string, type: string, tags: string[]) {
+    this.id = id;
+    this.czech = czech;
+    this.english = english;
+    this.type = type;
+    this.tags = tags;
+  }
+}
+
+export class CardAndReplyModel extends CardModel {
+  isFlipped!: boolean;
+  answerType!: AnswerType;
+  answer: string;
+
+  constructor(card: CardModel, isFlipped: boolean, answerType: AnswerType, answer: string) {
+    super(card.id, card.czech, card.english, card.type, card.tags);
+    
+    this.isFlipped = isFlipped;
+    this.answerType = answerType;
+    this.answer = answer;
+  }
 }
 
 export function getCards(): CardModel[] {
@@ -20,35 +42,39 @@ export function getCards(): CardModel[] {
 
 const cards = [
   {
+    id: 1,
     czech: "Dobrý den",
     english: "Hello",
     type: "",
-    flipped: false,
+    isFlipped: false,
     tags: [],
-    answer: Answer.NoAnswer,
+    answer: AnswerType.NoAnswer,
   },
   {
+    id: 2,
     czech: "Odkud jste?",
     english: "Where are you from?",
     type: "",
-    flipped: false,
+    isFlipped: false,
     tags: [],
-    answer: Answer.NoAnswer,
+    answer: AnswerType.NoAnswer,
   },
   {
+    id: 3,
     czech: "Mějte se hezky.",
     english: "Have a nice day",
     type: "",
-    flipped: false,
+    isFlipped: false,
     tags: [],
-    answer: Answer.NoAnswer,
+    answer: AnswerType.NoAnswer,
   },
   {
+    id: 4,
     czech: "Na shledanou.",
     english: "Goodbye",
     type: "",
-    flipped: false,
+    isFlipped: false,
     tags: [],
-    answer: Answer.NoAnswer,
+    answer: AnswerType.NoAnswer,
   },
 ];

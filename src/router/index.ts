@@ -1,17 +1,17 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import Home from "../views/Home.vue";
-import CardFlippingView from "../views/CardFlippingView.vue";
+import NewGame from "../views/NewGame.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    name: "Home",
+    name: "home",
     component: Home,
   },
   {
     path: "/card-flipping",
-    name: "CardFlipping",
-    component: CardFlippingView,
+    name: "card-flipping",
+    component: NewGame,
   },
 ];
 
