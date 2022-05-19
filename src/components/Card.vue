@@ -2,18 +2,23 @@
   <div v-if="store.currentCard">
     <div class="card text-center scale">
       <transition name="flip">
-        <p v-if="store.currentCard.isFlipped === false" key="czech" class="py-5">
-          {{ store.currentCard.czech }}
-          <span class="flip-button" v-if="store.type === 'cards-only'">
-            <i class="material-icons text-large h1" v-on:click="toggleCard()">autorenew</i>
-          </span>
-        </p>
-        <p v-else key="english" class="py-5">
-          {{ store.currentCard.english }}
-          <span class="flip-button" v-if="store.type === 'cards-only'">
-            <i class="material-icons text-large h1" v-on:click="toggleCard()">autorenew</i>
-          </span>
-        </p>
+        <h2 v-if="store.currentCard.isFlipped === false" >
+          <p key="czech" class="py-5">
+            {{ store.currentCard.czech }}
+            <span class="flip-button" v-if="store.type === 'cards-only'">
+              <i class="material-icons text-large h1" v-on:click="toggleCard()">autorenew</i>
+            </span>
+          </p>
+        </h2>
+        <h2 v-else>
+          <p key="english" class="py-5">
+            {{ store.currentCard.english }}
+            <span class="flip-button" v-if="store.type === 'cards-only'">
+              <i class="material-icons text-large h1" v-on:click="toggleCard()">autorenew</i>
+            </span>
+            <CardTags :store="store" />
+          </p>
+        </h2>
       </transition>  
       <div v-if="isAnswering" class="pb-5">
         <div class="text-start px-5" >
@@ -30,7 +35,9 @@
         </div>
         <div class="text-start px-5" >
           <div class="input-group mb-3 text-danger">
-            <p> {{ correctAnswer }}</p>
+            <p :class="{'text-danger': !isCorrectAnswer, 'text-success': isCorrectAnswer }">
+              {{ correctAnswerMessage }} <b>{{ correctAnswer }}</b>
+            </p>
           </div>
         </div>
       </div>
@@ -41,7 +48,7 @@
             {{ getButtonText('left') }}
           </button>
         </div>
-        <div class="col-6 text-end">
+        <div class="col-6 text-end" v-if="store.type === 'cards-only'">
           <button class="btn btn-primary p-3" @click="onButtonClick('right')" :disabled="isAnswering">
             {{ getButtonText('right') }}
           </button>
@@ -54,20 +61,25 @@
 import { AnswerType } from "@/model/cards";
 import { Store } from "@/store/store";
 import { Options, Vue } from "vue-class-component";
+import CardTags from "./CardTags.vue";
 
 @Options({
   props: {
     store: Object
   },
+  components: {
+    CardTags
+  }
 })
 export default class Card extends Vue {
   store!: Store;
   
-  displayAnswerBlock = false;
+  isCorrectAnswer = false;
+  correctAnswerMessage = "";
   correctAnswer = "";
 
   get isAnswering() {
-    return this.store.type === "cards-and-text" && this.displayAnswerBlock;
+    return this.store.type === "cards-and-text";
   } 
 
   toggleCard(): void {
@@ -98,11 +110,7 @@ export default class Card extends Vue {
     }
     else if (this.store.type === "cards-and-text")
     {
-      if (position === "right")
-      {
-        this.displayAnswerBlock = true;
-      }
-      else if (position === "left") {
+      if (position === "left") {
         this.store.currentCard!.answerType = AnswerType.Wrong;
         this.$emit('next', true);
       }
@@ -110,19 +118,26 @@ export default class Card extends Vue {
   }
 
   async validateAnswer() {
-    let message = "";
+    const regex = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g;
     
-    if (this.store.currentCard?.answer.toLowerCase() == this.store.currentCard?.english.toLowerCase()) {
+    const expectedAnwer = this.store.currentCard?.answer.toLowerCase().replace(regex, '');
+    const correctAnswer = this.store.currentCard?.english.toLowerCase().replace(regex, '');
+
+    if (expectedAnwer == correctAnswer) {
+      this.isCorrectAnswer = true;
       this.store.currentCard!.answerType = AnswerType.Correct;
-      message = "Correct! ";
+      this.correctAnswerMessage = `Correct! ${this.store.currentCard!.czech} in English is `;
     }
     else {
+      this.isCorrectAnswer = false;
       this.store.currentCard!.answerType = AnswerType.Wrong;
-      message = "Incorrect :(  The right answer is ";
+      this.correctAnswerMessage = `Incorrect :(  The right answer is `;
     }
 
-    this.correctAnswer = message + this.store.currentCard!.english;
+    this.correctAnswer = this.store!.currentCard!.english;
+    
     await new Promise(f => setTimeout(f, 3000));
+    this.correctAnswerMessage = "";
     this.correctAnswer = "";
     
     this.$emit('next', true);

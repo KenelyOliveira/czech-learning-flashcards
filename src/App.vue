@@ -29,11 +29,6 @@ a {
   text-decoration: none !important;
 }
 
-li {
-  list-style-type: none;
-  padding: 10px 10px;
-  transition: all 0.3s ease;
-}
 .flip-enter-active {
   transition: all 0.4s ease;
 }
@@ -63,6 +58,12 @@ li {
 .flip-button:hover {
   opacity: 1;
   transform: rotate(360deg);
+}
+
+.tag-list {
+  font-size: medium;
+  font-weight: lighter !important;
+  list-style-type: none;
 }
 
 </style>

@@ -1,7 +1,22 @@
 <template>
-  <transition name="flip">
-    <Card :store="store" @next="onNextCard" @previous="onPreviousCard" />
-  </transition>
+  <div>
+    <div class="pl-1 pb-2">
+      <div class="dropdown">
+        <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Filter by Type
+        </button>
+        <ul class="dropdown-menu">
+          <li class="dropdown-item" @click="filterByType('all')">All types</li>
+          <li v-for="(type) in store.cardTypes" v-bind:key="type" @click="filterByType(type)" class="dropdown-item">
+            {{ type }}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <transition name="flip">
+      <Card :store="store" @next="onNextCard" @previous="onPreviousCard" />
+    </transition>
+  </div>
 </template>
 
 <script lang="ts">
@@ -46,6 +61,11 @@ export default class CardCarroussel extends Vue {
     }
     
     this.store.currentCard = this.nextCard;
+  }
+
+  filterByType(type: string) {
+    this.store.cards = this.store.fetchAndShuffleCards(type);
+    this.onNextCard();
   }
 }
 </script>
