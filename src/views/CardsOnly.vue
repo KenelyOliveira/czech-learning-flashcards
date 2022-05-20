@@ -1,18 +1,8 @@
 <template>
   <div class="container-fluid">
     <div class="row justify-content-center">
-      <div class="col-12">
+      <div class="col-12" v-if="store">
         <CardCarroussel :store="store"/>
-      </div>
-    </div>
-    <div class="row justify-content-center" v-if="store?.type === 'cards-and-text'">
-      <div class="col-12">
-        Correct Answers: {{ numberCorrectAnswers }}
-      </div>
-    </div>
-    <div class="row justify-content-center" v-if="store?.type === 'cards-and-text'">
-      <div class="col-12 text-danger">
-        Wrong Answers: {{ numberWrongAnsweres }}
       </div>
     </div>
   </div>
@@ -28,13 +18,13 @@ import CardCarroussel from "../components/CardCarroussel.vue";
     CardCarroussel,
   },
 })
-export default class NewGame extends Vue {
+export default class CardsOnly extends Vue {
   isReady = false;
   store: Store | null = null;
   
   created(){
     this.store = createStore();
-    this.store.type = this.$route.query.type?.toString();
+    this.store.type = "cards-only";
   }
 
   get numberCorrectAnswers() {

@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="pl-1 pb-2">
-      <div class="dropdown">
-        <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <div class="dropdown ">
+        <button class="btn button-filter dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
           Filter by Type
         </button>
-        <ul class="dropdown-menu">
-          <li class="dropdown-item" @click="filterByType('all')">All types</li>
+        <ul class="dropdown-menu button-filter">
+          <li class="dropdown-item" @click="filterByType('all')">All</li>
           <li v-for="(type) in store.cardTypes" v-bind:key="type" @click="filterByType(type)" class="dropdown-item">
             {{ type }}
           </li>
@@ -69,3 +69,9 @@ export default class CardCarroussel extends Vue {
   }
 }
 </script>
+<style scoped>
+.button-filter {
+  background-color: #FAFDD6 !important;
+  color: #A2B38B !important;
+}
+</style>

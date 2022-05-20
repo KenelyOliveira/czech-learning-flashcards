@@ -1,9 +1,9 @@
 <template>
   <div v-if="store.currentCard">
-    <div class="card text-center scale">
+    <div class="card text-center scale card-color" >
       <transition name="flip">
         <h2 v-if="store.currentCard.isFlipped === false" >
-          <p key="czech" class="py-5">
+          <p key="czech" class="py-5 text-secondary">
             {{ store.currentCard.czech }}
             <span class="flip-button" v-if="store.type === 'cards-only'">
               <i class="material-icons text-large h1" v-on:click="toggleCard()">autorenew</i>
@@ -11,7 +11,7 @@
           </p>
         </h2>
         <h2 v-else>
-          <p key="english" class="py-5">
+          <p key="english" class="py-5 text-secondary">
             {{ store.currentCard.english }}
             <span class="flip-button" v-if="store.type === 'cards-only'">
               <i class="material-icons text-large h1" v-on:click="toggleCard()">autorenew</i>
@@ -44,13 +44,18 @@
     </div>
     <div class="row pt-4">
         <div class="col-6 text-start">
-          <button class="btn btn-primary p-3" @click="onButtonClick('left')">
-            {{ getButtonText('left') }}
+          <button class="btn button-nav p-3" @click="onButtonClick('left')">
+            <span class="material-symbols-outlined" style="font-size: 60px">
+              arrow_back
+            </span>
           </button>
+          
         </div>
         <div class="col-6 text-end" v-if="store.type === 'cards-only'">
-          <button class="btn btn-primary p-3" @click="onButtonClick('right')" :disabled="isAnswering">
-            {{ getButtonText('right') }}
+          <button class="btn button-nav p-3" @click="onButtonClick('right')" :disabled="isAnswering">
+            <span class="material-symbols-outlined" style="font-size: 60px">
+                arrow_forward
+            </span>
           </button>
         </div>
       </div>
@@ -144,3 +149,47 @@ export default class Card extends Vue {
   }
 }
 </script>
+
+<style scoped>
+.card-color {
+  background-color: #B6FFCE !important;
+  border-color: transparent;
+}
+
+.flip-enter-active {
+  transition: all 0.4s ease;
+}
+
+.flip-leave-active {
+  display: none;
+}
+
+.flip-enter, .flip-leave {
+  transform: rotateY(180deg);
+  opacity: 0;
+}
+
+.flip-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 10px 15px;
+  opacity: .4;
+  transition: all 0.5s ease;
+}
+
+.flip-button:hover {
+  opacity: 1;
+  transform: rotate(360deg);
+}
+
+.button-nav {
+  background-color: transparent !important;
+  color: inherit !important;
+  border: none;
+}
+
+.button-nav :hover {
+  background-color: transparent !important;
+}
+</style>
