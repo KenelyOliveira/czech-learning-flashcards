@@ -20,7 +20,7 @@
           </p>
         </h2>
       </transition>  
-      <div v-if="isAnswering" class="pb-5">
+      <div v-if="isAnswering" class="pb-1">
         <div class="text-start px-5" >
           <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="Answer" v-model="store.currentCard.answer">
@@ -42,7 +42,7 @@
         </div>
       </div>
     </div>
-    <div class="row pt-4">
+    <div class="row pt-4" v-if="store.type === 'cards'">
         <div class="col-6 text-start">
           <button class="btn button-nav p-3" @click="onButtonClick('left')">
             <span class="material-symbols-outlined" style="font-size: 60px">
@@ -51,7 +51,7 @@
           </button>
           
         </div>
-        <div class="col-6 text-end" v-if="store.type === 'cards-only'">
+        <div class="col-6 text-end" v-if="store.type === 'cards'">
           <button class="btn button-nav p-3" @click="onButtonClick('right')" :disabled="isAnswering">
             <span class="material-symbols-outlined" style="font-size: 60px">
                 arrow_forward
@@ -84,7 +84,7 @@ export default class Card extends Vue {
   correctAnswer = "";
 
   get isAnswering() {
-    return this.store.type === "cards-and-text";
+    return this.store.type === "game";
   } 
 
   toggleCard(): void {
@@ -113,7 +113,7 @@ export default class Card extends Vue {
         this.$emit('previous', true);
       }
     }
-    else if (this.store.type === "cards-and-text")
+    else if (this.store.type === "game")
     {
       if (position === "left") {
         this.store.currentCard!.answerType = AnswerType.Wrong;

@@ -110,5 +110,47 @@ const cards = [
     english: "9",
     type: "Numbers",
     tags: [],
-  }
+  },
+  {
+    id: 11,
+    czech: "Úředník",
+    english: "Clerk",
+    type: "Professions",
+    tags: ["masculine"],
+  },
+  {
+    id: 12,
+    czech: "Úřednice",
+    english: "Clerk",
+    type: "Professions",
+    tags: ["feminine"],
+  },
+  {
+    id: 13,
+    czech: "Dělník",
+    english: "Labourer",
+    type: "Professions",
+    tags: ["masculine"],
+  },
+  {
+    id: 14,
+    czech: "Dělnice",
+    english: "Labourer",
+    type: "Professions",
+    tags: ["feminine"],
+  },
+  {
+    id: 15,
+    czech: "Učitel",
+    english: "Teacher",
+    type: "Professions",
+    tags: ["masculine"],
+  },
+  {
+    id: 16,
+    czech: "Učitelka",
+    english: "Teacher",
+    type: "Professions",
+    tags: ["feminine"],
+  },
 ];

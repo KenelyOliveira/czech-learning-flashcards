@@ -10,7 +10,7 @@ export class Store {
     allCards = getCards();
 
     get isAnswerInvalid() : boolean {
-        return this.currentCard?.answer?.length !== null && this.currentCard!.answer.length <= 1;
+        return this.currentCard?.answer?.length !== null && this.currentCard!.answer.length <= 0;
     }
 
     fetchAndShuffleCards(type: string) : CardAndReplyModel[] {

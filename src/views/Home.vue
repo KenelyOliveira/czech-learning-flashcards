@@ -30,6 +30,11 @@
           </RouterLink>
       </div>
     </div>
+    <div class="row justify-content-center pt-3">
+      <div>
+        <div id="my-signin2"></div>
+      </div>
+    </div>
   </div>
 </template>
 

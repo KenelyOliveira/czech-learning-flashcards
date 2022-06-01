@@ -5,12 +5,12 @@
         <CardCarroussel :store="store"/>
       </div>
     </div>
-    <div class="row justify-content-center" v-if="store?.type === 'cards-and-text'">
+    <div class="row justify-content-center" v-if="store?.type === 'game'">
       <div class="col-12">
         Correct Answers: {{ numberCorrectAnswers }}
       </div>
     </div>
-    <div class="row justify-content-center" v-if="store?.type === 'cards-and-text'">
+    <div class="row justify-content-center" v-if="store?.type === 'game'">
       <div class="col-12 text-danger">
         Wrong Answers: {{ numberWrongAnsweres }}
       </div>
@@ -34,7 +34,7 @@ export default class StartGame extends Vue {
   
   created(){
     this.store = createStore();
-    this.store.type = this.$route.query.type?.toString();
+    this.store.type = "game";
   }
 
   get numberCorrectAnswers() {
