@@ -42,7 +42,7 @@
         </div>
       </div>
     </div>
-    <div class="row pt-4" v-if="store.type === 'cards'">
+    <div class="row pt-4" v-if="store.type === 'cards-only'">
         <div class="col-6 text-start">
           <button class="btn button-nav p-3" @click="onButtonClick('left')">
             <span class="material-symbols-outlined" style="font-size: 60px">
@@ -51,7 +51,7 @@
           </button>
           
         </div>
-        <div class="col-6 text-end" v-if="store.type === 'cards'">
+        <div class="col-6 text-end" v-if="store.type === 'cards-only'">
           <button class="btn button-nav p-3" @click="onButtonClick('right')" :disabled="isAnswering">
             <span class="material-symbols-outlined" style="font-size: 60px">
                 arrow_forward
